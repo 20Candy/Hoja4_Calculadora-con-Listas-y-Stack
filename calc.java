@@ -1,6 +1,6 @@
 import java.util.Scanner;
 /******************************************************************
-@author Carol Arevalo 
+@author Carol Arevalo, Jose Miguel Gonzalez
 @since 02/02/21
 
 class calc calculadora - main
@@ -15,14 +15,17 @@ public class calc {
 
     public static void main (String [ ] args) {
 
-        calculadora calcu= new calculadora();
+        //patron singleton
+        calculadora calcu = calculadora.getInstance();
         Scanner scan = new Scanner(System.in);
 
-        //ciclo
+        //calculadora c= new calculadora(); no se puede insanciar por singleton
+
+         //ciclo
 
         int opcion = -1;
 
-        while (opcion != 3){
+            while (opcion != 3){
 
             //-------------------------------------------------------------------------------------------------------------------
             System.out.println("\n\nBienvenido al programa de listas UwU");
@@ -48,15 +51,15 @@ public class calc {
                     op = scan.nextInt();
                     
                     if (op == 1){
-                        calcu.calculadora(1);
+                        calcu.tipo(1);
                         calcu.decode("datos.txt");
                        
                     }else if(op == 2){
-                        calcu.calculadora(2);
+                        calcu.tipo(2);
                         calcu.decode("datos.txt");
 
                     }else if(op ==3){
-                        calcu.calculadora(3);
+                        calcu.tipo(3);
                         calcu.decode("datos.txt");
 
                     }else if(op == 4){
@@ -80,11 +83,11 @@ public class calc {
                     op = scan.nextInt();
                     
                     if (op == 1){
-                        calcu.calculadora(1);
+                        calcu.tipo(1);
                         calcu.decodeLista("datos.txt");
         
                     }else if(op == 2){
-                        calcu.calculadora(2);
+                        calcu.tipo(2);
                         calcu.decodeLista("datos.txt");
 
                     }else if(op == 3){

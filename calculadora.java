@@ -16,9 +16,20 @@ import java.util.ArrayList;
 */
 public class calculadora <E> implements Icalculadora <E>{
 
+//SINGLETON///////////////////////////////
+static calculadora c = new calculadora();
+
+private calculadora(){
+}
+
+public static calculadora getInstance(){
+    return c;
+}
+
+///////////////////////////////////////
 public int tipo= -1;
 
-public void calculadora(int t){
+public void tipo(int t){
     tipo = t; 
 }
 
@@ -149,11 +160,11 @@ public int operar(AbstractStack stack){
     }
 
     //mientras no este vacio el stack 
-    int tamaño= temporal.size();
+    int tamano= temporal.size();
 
     if(temporal.isEmpty()==false){
         //tiene que quedar un dato de lo contrario hizo falta operadores
-        if(tamaño!=1){
+        if(tamano!=1){
             System.out.println("Operacion incompleta: operadores faltantes");
         }
         resultado_final= Integer.parseInt(temporal.remove(temporal.size()-1)+"");
@@ -246,27 +257,39 @@ public AbstractStack inout(AbstractStack<String> stack){
 
             int tama = secundaria.size();
             for(int i = 0; i < tama-1; i++){
-                if(secundaria.size() > 1){
+                //if(secundaria.size() >= 1){
 
                     String temp = secundaria.get(i++);
-                    if(temp.equals("(")){
-                        System.out.println("mamaguevaso, digo glu glu glu");
-                        secundaria.remove(i);
-                    }else if(secundaria.get(i).equals("+") || secundaria.get(i).equals("-")){
+                    String temp2 = secundaria.get(i);
+
+                    if(secundaria.get(i).equals("+")){
+                      
                         if(temp.equals("*") || temp.equals("/")){
-
-                            String temp2 = secundaria.get(i);
-                            secundaria.add(i, temp);
-                            secundaria.add(i++, temp2);
                             
-                        } else if(temp.equals("(")){
-
-                            secundaria.remove(i++);
-
+                            int numerito = i+1;
+                            secundaria.add(i, temp);
+                            secundaria.add(numerito, temp2);
+                            
+                        } else{
+                            
                         }
-                        
-                    }
-                }
+                    } else if(secundaria.get(i).equals("-")){
+                        if(temp.equals("*") || temp.equals("/")){
+                            
+                            int numerito = i+1;
+                            secundaria.add(i, temp);
+                            secundaria.add(numerito, temp2);
+                            
+                        }
+                    } 
+                    if(secundaria.get(i).equals("(")){
+                        secundaria.remove(i);
+                        String deMientras = secundaria.get(i++);
+                        secundaria.add(i, deMientras);
+                        //tama--;
+                        //i--;
+                    } 
+                //}
                 stackRespuesta.push(secundaria.get(i));
             }
             secundaria.clear();
@@ -293,11 +316,6 @@ public AbstractStack inout(AbstractStack<String> stack){
 
     while(stackRespuesta.empty()==false){
         stackRespuesta2.push(stackRespuesta.pop());
-    }
-
-
-    while(stackRespuesta2.empty()==false){
-        System.out.println(stackRespuesta2.pop());
     }
    
     return stackRespuesta2;
@@ -389,11 +407,11 @@ public int operarLista(AbstractList lista){
     }
 
     //mientras no este vacio el stack 
-    int tamaño= temporal.size();
+    int tamano= temporal.size();
 
     if(temporal.isEmpty()==false){
         //tiene que quedar un dato de lo contrario hizo falta operadores
-        if(tamaño!=1){
+        if(tamano!=1){
             System.out.println("Operacion incompleta: operadores faltantes");
         }
         resultado_final= Integer.parseInt(temporal.remove(temporal.size()-1)+"");
@@ -536,9 +554,4 @@ public AbstractList trabajarLista(int tipo){
     return list;
     
 }
-
-
-
-
-
 }
